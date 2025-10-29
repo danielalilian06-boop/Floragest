@@ -4,10 +4,52 @@
   <meta charset="UTF-8">
   <title>Inventario de Flores - FloraGest</title>
   <link rel="stylesheet" href="/static/styles.css">
+  <style>
+    /* Menú superior */
+    #menuUsuario {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--color-primary);
+      color: white;
+      padding: 10px 20px;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    #menuUsuario button {
+      background-color: var(--color-danger);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #menuUsuario button:hover {
+      background-color: #c0392b;
+    }
+
+    body {
+      padding-top: 60px;
+    }
+  </style>
 </head>
 <body>
+  <!-- Menú de usuario -->
+  <div id="menuUsuario">
+    
+    <button onclick="cerrarSesion()">Cerrar Sesión</button>
+  </div>
+
   <h1>🌼 Inventario de Flores</h1>
 
+  <!-- Formulario de agregar flores -->
   <form id="formFlor">
     <input type="text" id="nombre" placeholder="Nombre" required>
     <input type="text" id="color" placeholder="Color" required>
@@ -16,6 +58,7 @@
     <button type="submit">Agregar Flor</button>
   </form>
 
+  <!-- Tabla de flores -->
   <table>
     <thead>
       <tr><th>ID</th><th>Nombre</th><th>Color</th><th>Stock</th><th>Precio</th><th>Acciones</th></tr>
@@ -24,6 +67,7 @@
   </table>
 
   <script>
+    // --- CRUD de flores ---
     async function cargarFlores() {
       const res = await fetch('/api/flores');
       const data = await res.json();
@@ -73,6 +117,11 @@
     }
 
     cargarFlores();
+
+    // --- Cerrar sesión ---
+    function cerrarSesion() {
+      window.location.href = "/";
+    }
   </script>
 </body>
 </html>
